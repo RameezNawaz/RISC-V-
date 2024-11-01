@@ -1,0 +1,35 @@
+module RISCV_SCP(
+input clk,
+input rst);
+reg [31:0] PC_OUT;
+wire [31:0] instruction;
+wire [1:0] Immsrc;
+wire [31:0] d;
+wire [31:0] PC_next,PC_TARGET,PC_PLUS4;
+wire[31:0] b;
+wire PC_src,Resultsrc,MemWrite, ALUsrc,RegWrite;
+wire [2;0] ALUOp;
+wire [31:0] readdata1,readdata2,SRC_B;
+reg [2:0] Operation;
+reg [31:0] ALUResult;
+reg zero;
+wire [31:0] Read_Data;
+
+
+assign b=32'h00000004;
+
+Mux_2to1(PC_PLUS4,PC_TARGET,PC_src,PC_next);
+PC pc1(clk,PC_next,rst,PC_OUT);
+Instruction_memory i1( a, instruction);
+registerfile r1(instruction[19:15],instruction[24:20],instruction[11:7],RegWrite,Result,readdata1,readdata2,clk);
+control_unit c1( instruction[6:0], PC_src,  Immsrc,  Resultsrc,  ALUOp, MemWrite, ALUsrc,RegWrite);
+IDG I2(Instruction[31:7],d,Immsrc);
+Adder a1(PC_OUT,b,PC_PLUS4);
+Adder a2(d,PC_OUT,PC_TARGET);
+Mux_2to1(readdata2,d,ALUsrc,SRC_B);
+ALU_control al1( ALUOp,instruction[14:12], instruction[30], zero,  Operation);
+ALU al2(readdata1,SRC_B,Operation,ALUResult,zero);
+Data_Memory( clk, MemWrite,  ALUResult,  readdata2,  Read_Data);
+Mux_2to1(ALUResult,Read_Data,Resultsrc,Result);
+endmodule
+
