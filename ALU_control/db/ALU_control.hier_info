@@ -1,0 +1,32 @@
+|ALU_control
+ALUOp[0] => Equal0.IN1
+ALUOp[0] => Equal1.IN0
+ALUOp[0] => Equal2.IN1
+ALUOp[1] => Equal0.IN0
+ALUOp[1] => Equal1.IN1
+ALUOp[1] => Equal2.IN0
+Funct[0] => Equal6.IN2
+Funct[0] => Equal8.IN2
+Funct[0] => Equal9.IN2
+Funct[0] => Equal10.IN2
+Funct[1] => Equal6.IN1
+Funct[1] => Equal8.IN0
+Funct[1] => Equal9.IN1
+Funct[1] => Equal10.IN1
+Funct[2] => Equal6.IN0
+Funct[2] => Equal8.IN1
+Funct[2] => Equal9.IN0
+Funct[2] => Equal10.IN0
+Funct7 => Equal3.IN1
+Funct7 => Equal4.IN0
+Funct7 => Equal5.IN1
+Funct7 => Equal7.IN1
+op => Equal3.IN0
+op => Equal4.IN1
+op => Equal5.IN0
+op => Equal7.IN0
+Operation[0] <= Operation[0]$latch.DB_MAX_OUTPUT_PORT_TYPE
+Operation[1] <= Operation[1]$latch.DB_MAX_OUTPUT_PORT_TYPE
+Operation[2] <= Operation[2]$latch.DB_MAX_OUTPUT_PORT_TYPE
+
+
